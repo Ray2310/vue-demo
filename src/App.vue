@@ -1,31 +1,68 @@
 <template>
-
-  <!-- 类名·最好和当前组件名同名 -->
   <div class="App">
 
-    这里是head头部
-    <Head>test</Head>
+    <!-- 快捷链接 -->
+    <XtxShortCut>快捷链接</XtxShortCut>
+
+
+    <!-- 顶部导航 -->
+    <XtxHeaderNav>顶部导航</XtxHeaderNav>
+    
+    
+    
+    <!-- 轮播区域 -->
+    <XtxBanner>轮播区域</XtxBanner>
+    
+    
+    <!-- 新鲜好物 -->
+    <XtxNewGoods>新鲜好物</XtxNewGoods>
+    
+    
+    <!-- 热门品牌 -->
+    <XtxHotBrand>热门品牌</XtxHotBrand>
+    
+    
+    
+    <!-- 最新专题 -->
+    <XtxTopic>最新专题</XtxTopic>
+    
+    
+    <!-- 版权底部 -->
+    <XtxFooter></XtxFooter>
+    
+
+
   </div>
-
 </template>
+
+
 <script>
-  import Head from "./components/Head.vue";
-  export default {
-    // 注册组件
+  import XtxShortCut from './components/XtxShortCut.vue' 
+  import XtxHeaderNav from './components/XtxHeaderNav.vue'
+  import XtxBanner from './components/XtxBanner.vue'
+  import XtxNewGoods from './components/XtxNewGoods.vue'
+  import XtxHotBrand from './components/XtxHotBrand.vue'
+  import XtxTopic from './components/XtxTopic.vue'
+  import XtxFooter from './components/XtxFooter.vue'
+
+
+  export default{
     components: {
-      Head: Head
+      XtxShortCut,
+      XtxHeaderNav,
+      XtxBanner,
+      XtxNewGoods,
+      XtxHotBrand,
+      XtxTopic,
+      XtxFooter
     }
+
   }
-
-
 </script>
 
+
 <style>
-  .App {
-    width: 200px;
-    height: 200px;
-    background-color: blue;
-    /* margin: 0 auto; */
-  }
+
+
 
 </style>
