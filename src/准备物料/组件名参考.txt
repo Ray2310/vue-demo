@@ -6,7 +6,6 @@ XtxHotBrand
 XtxTopic
 XtxFooter
 
-
 XtxShortCut  => 快捷链接
 XtxHeaderNav => 顶部导航
 XtxBanner    => 轮播区域
