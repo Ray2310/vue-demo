@@ -1,73 +1,92 @@
 <template>
-  <!-- 主体区域 -->
-  <section id="app">
-    <TodoHeader @addItem="add"></TodoHeader>
-    <!-- 通过在这里写list， 就可以实现在子组件中作接收 -->
-    <TodoMain @deleteItem="deleteItem" :list="list"></TodoMain>
-    <TodoFooter @clear="clear" :list="list"></TodoFooter>
 
-  </section>
+  <!-- 类名·最好和当前组件名同名 -->
+  <div v-loading="isLoading">
+    <!--显示红色--> 
+   <h2 v-color="color1">指令的值1测试</h2>
+    <!--显示蓝色--> 
+   <h2 v-color="color2">指令的值2测试</h2>
+    <button @click="color1 = 'blue'">
+       改变第一个h1的颜色
+   </button>
+   <template>
+    <Mydialog v-slot:main></Mydialog>
+   </template>
+ </div>
+
 </template>
-
 <script>
-// 导入组件
-  import TodoHeader from './components/TodoHeader.vue'
-  import TodoMain from './components/TodoMain.vue'
-  import TodoFooter from './components/TodoFooter.vue'
-
-  export default {  
-    // 注册组件
-    components: {
-      TodoHeader, 
-      TodoMain,
-      TodoFooter    
-    },
+  //导入组件
+  import Mydialog from './components/Mydialog.vue'
   
-  //TODO: 数据提供需要提供在父组件中， 这样如果我们想要使用， 直接使用props传递即可。 
-  data () {
-    return {
-      list: [
-        {id: 1, name: 'eat'},
-        {id: 2, name: 'play'},
-        {id: 3, name: 'write'}
-      ]
+  export default {
+    data () {
+      return {
+        isLoading: true,
+        color1: 'red',
+        color2: 'blue'
+      }
+    },
+    async created() { 
+      // const res = await axios({
+      //   url: 'http://hmajax.itheima.net/api/news',
+      //   methods: 'get'
+      // })
+      setTimeout(()=>{
+        this.isLoading = false
+      },2000)
+    },
 
+
+    methods: {
+     
+
+    },
+
+    // mounted (){
+    //     let input = this.$refs.inp.focus()
+    //     console.log("input"+ input)
+    // },
+
+    // 注册组件 (对于导入的组件名和名称一样时， 我们可以直接使用)
+    components: {
+      Mydialog,
+      
     }
-  },
-  methods: {
-    add(newName){
-      console.log(newName)
-      //使用unshift添加
-      this.list.unshift({
-        id: +new Date(), //通过时间戳来实现id的唯一性
-        name: newName
-      })
-      //还需要作的是清空表单
-    },
-    deleteItem(id) {
-      console.log(id)
-      //通过filter过滤器实现删除操作
-      this.list = this.list.filter(item => item.id !== id) 
-    },
-    //清空任务栏
-    clear(){
-      this.list = []
+    ,
+    
+    directives: {
+      loading: {
+        inserted(el , binding){
+          el.classList.add(binding.value)
+        }
+      },
+      color: {
+        inserted (el, binding) {
+          // 可以对 el 标签，扩展额外功能
+          //这个el 就相当于是document.querySelecter('color')的意思
+          el.style.color = binding.value // 可以获取对应的data中的数据 就是我们指令的值color2 ----》 <h2 v-color="color1">指令的值1测试</h2>
+          el.focus()
+
+        },
+        // update 指令的值修改的时候触发， 提供值变化后， dom的更新逻辑
+        update (el , binding){
+           console.log('update 指令的val')
+           el.style.color = binding.value
+        }
+      }
     }
   }
-
-
-
-}
 </script>
-<!-- 
-  TODO:
-  拆分基础组件
-  渲染待办任务
-  添加任务
-  删除任务
-  底部合计 和 清空功能
-  持久化存储
- -->
-<style>
 
+<style>
+  .loading:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff url("./assets/loading.gif") no-repeat center;
+}
 </style>
