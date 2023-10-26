@@ -8,6 +8,7 @@
    <h2 v-color="color2">指令的值2测试</h2>
     <button @click="color1 = 'blue'">
        改变第一个h1的颜色
+       update
    </button>
    <template>
     <Mydialog v-slot:main></Mydialog>
