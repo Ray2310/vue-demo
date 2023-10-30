@@ -1,20 +1,22 @@
 <template>
-  <div>
-    <div class="footer_wrap">
-      <router-link to="/find">发现音乐</router-link>
-      <router-link to="/my">我的音乐</router-link>
-      <router-link to="/friend">朋友</router-link>
-      <router-link to="/link">友链</router-link>
-    </div>
-    <div class="top">
-      <!-- 路由出口 → 匹配的组件所展示的位置 (内置的组件) -->
+  <div class="h5-wrapper">
+    <keep-alive :include="keepArr">
       <router-view></router-view>
-    </div>
+
+    </keep-alive>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "h5-wrapper",
+  data() { 
+    return {
+      // 缓存组件的数组
+      keepArr: ['LayoutPage']
+    }
+  }
+}
 </script>
 
 <style>
@@ -22,31 +24,33 @@ body {
   margin: 0;
   padding: 0;
 }
-.footer_wrap {
-  position: relative;
-  left: 0;
-  top: 0;
-  display: flex;
-  width: 100%;
-  text-align: center;
-  background-color: #333;
-  color: #ccc;
-}
-.footer_wrap a {
-  flex: 1;
-  text-decoration: none;
-  padding: 20px 0;
-  line-height: 20px;
-  background-color: #333;
-  color: #ccc;
-  border: 1px solid black;
-}
-
-.footer_wrap a.router-link-active {
-  background-color: purple;
-}
-
-.footer_wrap a:hover {
-  background-color: #555;
+</style>
+<style lang="less" scoped>
+.h5-wrapper {
+  .content {
+    margin-bottom: 51px;
+  }
+  .tabbar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    display: flex;
+    background: #fff;
+    border-top: 1px solid #e4e4e4;
+    a {
+      flex: 1;
+      text-decoration: none;
+      font-size: 14px;
+      color: #333;
+      -webkit-tap-highlight-color: transparent;
+      &.router-link-active {
+        color: #fa0;
+      }
+    }
+  }
 }
 </style>
