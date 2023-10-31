@@ -1,56 +1,50 @@
 <template>
-  <div class="h5-wrapper">
-    <keep-alive :include="keepArr">
-      <router-view></router-view>
+  <div class="app-container">
+    <!-- Header 区域 -->
+    <cart-header></cart-header>
 
-    </keep-alive>
+    <!-- 商品 Item 项组件 
+      通过mapState得到数据， 然后进行v-for 渲染， 最后通过:item="item" 将对象传入
+      上述就是父传子
+    -->
+    <cart-item v-for="(item, index) in list" :key="item.id" :item="item"></cart-item>
+
+    <!-- Foote 区域 -->
+    <cart-footer :list="list"></cart-footer>
   </div>
 </template>
 
 <script>
+import CartHeader from '@/components/cart-header.vue'
+import CartFooter from '@/components/cart-footer.vue'
+import CartItem from '@/components/cart-item.vue'
+import { mapActions , mapGetters, mapState, mapMutations} from 'vuex';
+import cart from './store/modules/cart';
+
 export default {
-  name: "h5-wrapper",
-  data() { 
-    return {
-      // 缓存组件的数组
-      keepArr: ['LayoutPage']
-    }
+  name: 'App',
+  components: {
+    CartHeader,
+    CartFooter,
+    CartItem
+  },
+  computed: {
+    ...mapState('cart', ['list'])
+  },
+  created() {
+    // this.$store.dispatch('cart/getList')
+    //通过this调用
+    this.getList()
+  },
+  methods: {
+    ...mapActions('cart',['getList'])
   }
 }
 </script>
 
-<style>
-body {
-  margin: 0;
-  padding: 0;
-}
-</style>
 <style lang="less" scoped>
-.h5-wrapper {
-  .content {
-    margin-bottom: 51px;
-  }
-  .tabbar {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-    display: flex;
-    background: #fff;
-    border-top: 1px solid #e4e4e4;
-    a {
-      flex: 1;
-      text-decoration: none;
-      font-size: 14px;
-      color: #333;
-      -webkit-tap-highlight-color: transparent;
-      &.router-link-active {
-        color: #fa0;
-      }
-    }
-  }
+.app-container {
+  padding: 50px 0;
+  font-size: 14px;
 }
 </style>

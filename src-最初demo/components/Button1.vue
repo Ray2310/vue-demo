@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <button class="hm-button">通用按钮</button>
 </template>
